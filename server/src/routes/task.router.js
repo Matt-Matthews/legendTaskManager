@@ -1,9 +1,11 @@
 import express from 'express';
-import {getAllUserTasks, addNewTask} from '../controllers/task.controller.js';
+import {httpGetAllUserTasks, httpAddNewTask, httpGetAllTeamTasks } from '../controllers/task.controller.js';
 
 const taskRouter = express.Router();
 
-taskRouter.get('/', getAllUserTasks);
-taskRouter.post('/', addNewTask);
+taskRouter.get('/user/:id', httpGetAllUserTasks);
+taskRouter.get('/team/:id', httpGetAllTeamTasks);
+taskRouter.post('/', httpAddNewTask);
+taskRouter.put('/:id')
 
 export default taskRouter;

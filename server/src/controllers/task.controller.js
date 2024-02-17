@@ -1,20 +1,32 @@
-import {createTask} from '../models/task.model.js'
+import {createTask, getAllTasks, getAllTeamTasks} from '../models/task.model.js'
 
-const getAllUserTasks = (req, res) => {
-    const status = createTask();
-    return res.status(200).json({
-        name: 'test',
-        description: 'This is a describtion',
-        date: '12 may 2024',
+const httpGetAllUserTasks = (req, res) => {
+
+    const tasks = getAllTasks({userId: req.param.id});
+    
+    return res.status(200).json(tasks);
+}
+
+const httpGetAllTeamTasks = (req, res) => {
+
+    const tasks = getAllTasks({teamId: req.param.id});
+    
+    return res.status(200).json(tasks);
+}
+
+const httpAddNewTask = (req, res) => {
+    const status = createTask(req.body);
+    if(status === 'success') return res.status(201).json({
+        status
+    });
+
+    return res.status(401).json({
         status
     });
 }
 
-const addNewTask = (req, res) => {
-    return res.status(201);
-}
-
 export {
-    getAllUserTasks,
-    addNewTask,
+    httpGetAllUserTasks,
+    httpAddNewTask,
+    httpGetAllTeamTasks
 }
