@@ -1,8 +1,12 @@
 import express from "express";
+import userRouter from "./routes/user.router.js";
+import taskRouter from "./routes/task.router.js";
 
 const app = express();
 
 app.use(express.json());
+app.use('/user', userRouter);
+app.use('/task', taskRouter);
 
 app.get("/", (req, res) => {
   res.send("hello world");
