@@ -1,9 +1,9 @@
-import { v4 as uuid } from 'uuid'
 import Task from "../schemas/task.schema.js";
+import { handleID } from "../helpers/db.helper.js";
 
-const createTask = async (task) => {
-  const _task = await Task({...task, taskId: uuid()});
+const createTask = async (task, userId) => {
   try {
+    const _task = await Task({...task, owner: handleID(userId)});
     await _task.save();
     return 'success';
   }catch(err){
@@ -14,7 +14,9 @@ const createTask = async (task) => {
 
 const getAllTasks = async (id) => {
   try{
-    const tasks = await Task.find({...id});
+    console.log(id);
+    const tasks = await Task.find(id);
+    console.log('tesks',tasks);
     return tasks;
   }catch(err){
     return err.message;

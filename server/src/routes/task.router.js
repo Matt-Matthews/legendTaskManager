@@ -3,9 +3,9 @@ import {httpGetAllUserTasks, httpAddNewTask, httpGetAllTeamTasks } from '../cont
 
 const taskRouter = express.Router();
 
-taskRouter.get('/user/:id', httpGetAllUserTasks);
-taskRouter.get('/team/:id', httpGetAllTeamTasks);
+taskRouter.get('/user', httpGetAllUserTasks);
+taskRouter.get('/team', httpGetAllTeamTasks);
 taskRouter.post('/', httpAddNewTask);
-taskRouter.put('/:id')
+taskRouter.put('/')
 
 export default taskRouter;

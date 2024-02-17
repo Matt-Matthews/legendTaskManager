@@ -9,6 +9,10 @@ const TaskSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  dueDate: {
+    type: Date,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["In Progress", "Pending", "Completed"],
@@ -31,7 +35,7 @@ const TaskSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  ownerId: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
