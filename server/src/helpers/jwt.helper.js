@@ -3,7 +3,7 @@ import {SECRET_KEY} from '../config/configs.js';
 
 const createJwt = (user) => {
     try{
-        return jwt.sign(user, SECRET_KEY, {expiresIn: '24h'});
+        return jwt.sign(user, SECRET_KEY, {expiresIn: '30d'});
     }catch(err){
         return err.message;
     }
