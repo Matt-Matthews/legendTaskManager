@@ -1,5 +1,6 @@
 import Task from "../schemas/task.schema.js";
 import { handleID } from "../helpers/db.helper.js";
+import {calculateTotalPages} from '../helpers/page.helper.js';
 
 const createTask = async (task, userId) => {
   const _task = await Task({ ...task, owner: handleID(userId) });
@@ -7,11 +8,21 @@ const createTask = async (task, userId) => {
   return results;
 };
 
-const getAllTasks = async (id) => {
-  //id is object which could be {owner: 'ownerId'} or {teamId: 'teamID'}, this function is reuseable.
-  const tasks = await Task.find(id);
+const getAllTasks = async (query, {limit, page}) => {
+  //query is object which could be {owner: 'ownerId'} or {teamId: 'teamID'}, this function is reuseable.
+  const totalTasks = await Task.countDocuments(query);
 
-  return tasks;
+  const totalPages = calculateTotalPages(totalTasks, limit);
+  const skip = (page - 1) * limit;
+  //add pagenation to the data that will be returned
+  const tasks = await Task.find(query).skip(skip).limit(limit);
+
+  return {
+    totalTasks,
+    totalPages,
+    currentPage: Number(page),
+    tasks,
+  };
 };
 
 const assignTask = async (ownerId, taskId, teamId) => {

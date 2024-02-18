@@ -11,7 +11,7 @@ const httpGetAllUserTasks = async (req, res) => {
   try {
     const user = verifyToken(req.headers["authorization"]);
     //get all tasks where there is no team assigned
-    const tasks = await getAllTasks({ owner: handleID(user.id), teamId: null });
+    const tasks = await getAllTasks({ owner: handleID(user.id), teamId: null }, req.query);
 
     if (!tasks) {
       return res.status(404).send("tasks not found");
@@ -35,7 +35,7 @@ const httpGetAllTeamTasks = async (req, res) => {
         { teamId: handleID(req.body.teamId) },
         { owner: handleID(user.id), teamId: { $ne: null } },
       ],
-    });
+    }, req.query);
 
     if (!tasks) {
       return res.status(404).send("tasks not found");
