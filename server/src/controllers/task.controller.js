@@ -1,5 +1,10 @@
 import { verifyToken } from "../helpers/jwt.helper.js";
-import { createTask, getAllTasks, updateTask } from "../models/task.model.js";
+import {
+  assignTask,
+  createTask,
+  getAllTasks,
+  updateTask,
+} from "../models/task.model.js";
 import { handleID } from "../helpers/db.helper.js";
 
 const httpGetAllUserTasks = async (req, res) => {
@@ -10,17 +15,19 @@ const httpGetAllUserTasks = async (req, res) => {
   return res.status(200).json(tasks);
 };
 
-const httpGetAllTeamTasks = (req, res) => {
+const httpGetAllTeamTasks = async (req, res) => {
   const user = verifyToken(req.headers["authorization"]);
 
   //get all tasks where the user is either a team member or an owner with a team
   //teamId should not be null in both cases
-  const tasks = getAllTasks({
+  console.log(req.params.id)
+  const tasks = await getAllTasks({
     $or: [
-      { teamId: handleID(req.params.id) },
+      { teamId: handleID(req.body.teamId) },
       { owner: handleID(user.id), teamId: { $ne: null } },
     ],
   });
+  console.log(tasks)
 
   return res.status(200).json(tasks);
 };
@@ -41,7 +48,8 @@ const httpAddNewTask = async (req, res) => {
 
 const httpAssignTask = async (req, res) => {
   const user = verifyToken(req.headers["authorization"]);
-  const results = await assignTask(user.id, ...req.body);
+
+  const results = await assignTask(user.id, req.params.taskId, req.body.teamId);
 
   return res.status(201).json({
     results,
@@ -49,19 +57,19 @@ const httpAssignTask = async (req, res) => {
 };
 
 const httpUpdateTask = async (req, res) => {
-    const user = verifyToken(req.headers["authorization"]);
-    
-    const results = await updateTask(user.id, req.body);
+  const user = verifyToken(req.headers["authorization"]);
 
-    return res.status(201).json({
-        results,
-    });
-}
+  const results = await updateTask(user.id, req.params.taskId, req.body);
+
+  return res.status(201).json({
+    results,
+  });
+};
 
 export {
   httpGetAllUserTasks,
   httpAddNewTask,
   httpGetAllTeamTasks,
   httpAssignTask,
-  httpUpdateTask
+  httpUpdateTask,
 };

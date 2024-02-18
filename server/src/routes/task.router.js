@@ -6,7 +6,7 @@ const taskRouter = express.Router();
 taskRouter.get('/user', httpGetAllUserTasks);
 taskRouter.get('/team', httpGetAllTeamTasks);
 taskRouter.post('/', httpAddNewTask);
-taskRouter.put('/team', httpAssignTask);
+taskRouter.put('/team/:taskId', httpAssignTask);
 taskRouter.put('/:taskId', httpUpdateTask);
 
 export default taskRouter;
