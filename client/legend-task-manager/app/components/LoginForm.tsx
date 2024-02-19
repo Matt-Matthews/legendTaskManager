@@ -18,6 +18,7 @@ function LoginForm({ resetPassword }: Props) {
   const { register, handleSubmit } = useForm<User>();
   const router = useRouter();
   const onSubmit = (data: User) => {
+    
     console.log(data);
     router.push("/dashboard");
   };
