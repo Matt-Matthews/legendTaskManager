@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Input from "./Input";
 import PasswordInput from "./PasswordInput";
 import { useRouter } from "next/navigation";
+import handleAuth from "../api/authentication";
 
 interface User {
   email: string;
@@ -17,10 +18,18 @@ interface Props {
 function LoginForm({ resetPassword }: Props) {
   const { register, handleSubmit } = useForm<User>();
   const router = useRouter();
-  const onSubmit = (data: User) => {
-    
-    console.log(data);
-    router.push("/dashboard");
+
+  const onSubmit = async (data: User) => {
+    const { email, password } = data;
+
+    if (email && password) {
+      const token = await handleAuth(data, '/user/login');
+      if(token){
+        localStorage.setItem("token", token);
+        router.push("/dashboard");
+      }
+     
+    }
   };
   return (
     <>

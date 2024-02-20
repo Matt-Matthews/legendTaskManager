@@ -18,6 +18,7 @@ function StatusInput({ formRegisterReturn }: Props) {
               id={index.toString()}
               value={status}
               {...formRegisterReturn}
+              checked={status === statusList[0]}
             />
             <label className="ml-1 mb-px" htmlFor={index.toString()}>{status}</label>
           </div>

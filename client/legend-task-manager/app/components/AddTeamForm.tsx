@@ -3,36 +3,26 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import { FaTimes } from "react-icons/fa";
-import StatusInput from "./StatusInput";
-import { AddTask, editTask } from "../api/task";
+import { addTeam } from "../api/team";
 
-
-interface Task {
+interface Team {
   name: string;
   description: string;
-  dueDate: Date;
-  status: string;
 }
 
 interface Props {
   close: Function;
-  taskId: string;
-  action: string;
+  userId: string;
 }
 
-function AddTaskForm({ close, taskId, action }: Props) {
-  const { register, handleSubmit } = useForm<Task>();
- 
-  const onSubmit = async (data: Task) => {
+function AddTeamForm({ close, userId }: Props) {
+  const { register, handleSubmit } = useForm<Team>();
+  const onSubmit = async (data: Team) => {
+    console.log(data, userId);
     const token = localStorage.getItem("token");
     if (token) {
-      if (action === "add") {
-        const results = await AddTask(data, token);
-        console.log(results);
-      } else {
-        const res = await editTask(data, token, taskId);
-        console.log(res);
-      }
+      const results = await addTeam(token, data);
+      console.log(results)
       window.location.reload();
     }
   };
@@ -48,9 +38,7 @@ function AddTaskForm({ close, taskId, action }: Props) {
         >
           <FaTimes />
         </button>
-        <h3 className="font-bold">
-          {action.charAt(0).toUpperCase() + action.slice(1)} Task
-        </h3>
+        <h3 className="font-bold">Add Team</h3>
         <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
           <Input
             formRegisterReturn={register("name")}
@@ -72,15 +60,6 @@ function AddTaskForm({ close, taskId, action }: Props) {
             />
           </div>
 
-          <Input
-            formRegisterReturn={register("dueDate")}
-            label="Due Date"
-            inputId="dueDate"
-            type="date"
-            placeholder="eg.12/02/2024"
-          />
-          <StatusInput formRegisterReturn={register("status")} />
-
           <button
             className="max-h-10 py-1 rounded w-full bg-primary text-white mt-8"
             type="submit"
@@ -93,4 +72,4 @@ function AddTaskForm({ close, taskId, action }: Props) {
   );
 }
 
-export default AddTaskForm;
+export default AddTeamForm;

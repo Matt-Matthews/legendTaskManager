@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import PasswordInput from "./PasswordInput";
+import handleAuth from "../api/authentication";
 
 interface User {
   firstName: string;
@@ -14,7 +15,11 @@ interface User {
 
 export default function RegisterForm() {
   const { register, handleSubmit } = useForm<User>();
-  const onSubmit = (data: User) => console.log(data);
+  const onSubmit = async (data: User) => {
+    const results = await handleAuth(data, '/user/register');
+    console.log(results)
+    window.location.reload();
+  };
   return (
     <>
       <h3 className="font-bold text-xl">Register</h3>
