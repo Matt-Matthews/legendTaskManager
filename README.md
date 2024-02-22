@@ -40,10 +40,14 @@ updated.
 - Notification
 - Download pdf
 
+### User Classification and privileges
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/60f6f246-9e74-420c-9f68-3ca8d4ae7b77)
 
+### Database/Schemas design
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/b49c33d8-abf0-418e-b05c-9ab8b8ba8cec)
 
+### App routers/pages
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/b605b1ff-b8bb-4a88-ae25-a3fc36439888)
 
+Server Architecture
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/eb8344ca-1773-4cd6-b2d8-563548883e72)
