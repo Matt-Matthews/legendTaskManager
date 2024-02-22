@@ -42,7 +42,7 @@ updated.
 
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/60f6f246-9e74-420c-9f68-3ca8d4ae7b77)
 
-![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/5f6bfb5c-5834-4f85-89f2-216864b1cd97)
+![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/b49c33d8-abf0-418e-b05c-9ab8b8ba8cec)
 
 ![image](https://github.com/Matt-Matthews/legendTaskManager/assets/65659429/b605b1ff-b8bb-4a88-ae25-a3fc36439888)
 
